@@ -58,6 +58,9 @@ Initial release of API Version Changer Salesforce.
 
 ## Working with Markdown
 
+**Company:**
+* [@Step Ahead Consulting](https://stepahead.pt/)
+
 **Author:**
 * [@Vítor Batista](https://github.com/vitor-batista/) 
 
