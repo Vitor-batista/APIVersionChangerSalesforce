@@ -3,6 +3,7 @@
 	"displayName": "API Version Changer Salesforce",
 	"description": "This will help you with the regex to replace API versions",
 	"version": "0.0.1",
+	"publisher": "Vítor-Batista",
 	"engines": {
 		"vscode": "^1.62.0"
 	},
