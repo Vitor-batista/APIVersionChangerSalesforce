@@ -20,15 +20,15 @@
     "commands": [
       {
         "command": "saleforce-easy-help.findReplaceAPI",
-        "title": "EasyHelp: API Version Changer"
+        "title": "sfEasyHelp: API Version Changer"
       },
       {
         "command": "saleforce-easy-help.installSFPowerKit",
-        "title": "EasyHelp: Install SF Power Kit"
+        "title": "sfEasyHelp: Install SF Power Kit"
       },
       {
         "command": "saleforce-easy-help.completeManifest",
-        "title": "EasyHelp: Get Complete Manifest"
+        "title": "sfEasyHelp: Get Complete Manifest"
       }
     ]
   },
