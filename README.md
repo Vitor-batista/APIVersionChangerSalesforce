@@ -8,11 +8,11 @@ This extension will provide some features to help you work with salesforce.
 
 You have 3 available commands
 
-    API Version Changer
+    EsayHelp: API Version Changer
 
-    Install SF Power Kit
+    EsayHelp: Install SF Power Kit
 
-    Get Complete Manifest
+    EsayHelp: Get Complete Manifest
 
 
 That you can run in the <b>Command Palette</b> (Ctrl+Shift+P)
@@ -58,11 +58,11 @@ Initial release of API Version Changer Salesforce.
 
 Changed the name and added two new features
     
-    Install SF Power Kit
+    EsayHelp: Install SF Power Kit
 
 and
     
-    Get Complete Manifest
+    EsayHelp: Get Complete Manifest
 <br>
 
 -----------------------------------------------------------------------------------------------------------
