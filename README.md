@@ -1,50 +1,50 @@
-# API Version Changer Salesforce README
+# Salesforce EasyHelp
 
-This extension will provide you the regex to change your salesforce files API versions.
+This extension will provide some features to help you work with salesforce.
 
 <br>
 
 # How it works
 
-*After installed.*
-
-<br>
-
-By running in the <b>Command Palette</b> (Ctrl+Shift+P)
+You have 3 available commands
 
     API Version Changer
 
-you open the <b>Search Replace</b> with the search part already filled.
+    Install SF Power Kit
+
+    Get Complete Manifest
+
+
+That you can run in the <b>Command Palette</b> (Ctrl+Shift+P)
 
 <br>
 
-All You need to do is insert the new API version and then click <b>Replace all</b> (Ctrl+Alt+Enter).
-
-<br>
-<br>
-
-# Known Issues
-
-The extension will replace every group of characters that matches:    
-
-    <apiVersion>XX.X</apiVersion>
-
-Where <b>X</b> is any digit (0-9).
+## Command description
 
 <br>
 
-This means that if in any file of your folder you have something like shown above, it will be changed as well.
+### API Version Changer
+
+By executing this command, the tab <b>Search Replace</b> will open filled with the RegEx ready to change the API version of all<br> the files in your vsCode, you just need to enter the new version in the <b>replace bar</b> and click <b>Replace all</b> (Ctrl+Alt+Enter) 
 
 <br>
 
-To avoid this you can open the function <b>Toggle Search Details</b> and select the files that you want to avoid the execution (files to exclude) or select the files that you want to execute the change (files to include).
+### Install SF Power Kit
+
+By executing this command, the terminal will open executing the command to install the SF Power Kit, you may need to accept plugin installation
 
 <br>
+
+### Get Complete Manifest
+
+By executing this command, a window asking the name of the file will open, you just need to enter the name you want for<br> the file and press enter, the terminal will open executing a command that will get you the "big manifest" (it may take a while)
+
 <br>
 
 # Release Notes
 
-17 / 11 / 2021 - Extension released.
+17 / 11 / 2021 - Extension released.<br>
+07 / 04 / 2022 - 1.1.0 released.
 
 <br>
 
@@ -52,6 +52,17 @@ To avoid this you can open the function <b>Toggle Search Details</b> and select 
 
 Initial release of API Version Changer Salesforce.
 
+<br>
+
+## 1.1.0
+
+Changed the name and added two new features
+    
+    Install SF Power Kit
+
+and
+    
+    Get Complete Manifest
 <br>
 
 -----------------------------------------------------------------------------------------------------------
