@@ -182,6 +182,34 @@ function activate(context) {
 
 	let getManifest = vscode.commands.registerCommand('saleforce-easy-help.getManifest', getPackageFileName );
 
+	let installSFPowerKit = vscode.commands.registerCommand('saleforce-easy-help.installSFPowerKit', function () {
+
+		let term = vscode.window.createTerminal('sfPowerKit Installation');
+		term.show();
+		term.sendText('sfdx plugins:install sfpowerkit');
+	});
+
+	
+	var getCompleteManifest = async () => {
+
+		const fileName = await vscode.window.showInputBox({
+			placeHolder: "Enter File Name",
+			prompt: "ex: bigManifest"
+		});
+
+		if ( fileName !== undefined ){
+
+			let query = "sfdx sfpowerkit:org:manifest:build -o manifest/" + fileName + ".xml -e 'CustomObjectTranslation'";
+			
+			let term = vscode.window.createTerminal('Get Big manifest');
+			term.show();
+			term.sendText(query);
+			
+		}
+	};
+	
+	let completeManifest = vscode.commands.registerCommand('saleforce-easy-help.completeManifest', getCompleteManifest );
+	
 	context.subscriptions.push(disposable);
 	context.subscriptions.push(installSFPowerKit);
 	context.subscriptions.push(getManifest);
