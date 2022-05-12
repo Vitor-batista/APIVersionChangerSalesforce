@@ -1,8 +1,8 @@
 {
-  "name": "api-version-changer-salesforce",
-  "displayName": "API Version Changer Salesforce",
-  "description": "This will help you with the regex to replace API versions",
-  "version": "0.0.2",
+  "name": "saleforce-easy-help",
+  "displayName": "Salesforce EasyHelp",
+  "description": "Some featues to help you work with salesforce",
+  "version": "1.1.0",
   "publisher": "VtorBatista",
   "engines": {
     "vscode": "^1.62.0"
@@ -11,14 +11,24 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:api-version-changer-salesforce.findReplaceAPI"
+    "onCommand:saleforce-easy-help.findReplaceAPI",
+    "onCommand:saleforce-easy-help.installSFPowerKit",
+    "onCommand:saleforce-easy-help.getManifest"
   ],
   "main": "./extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "api-version-changer-salesforce.findReplaceAPI",
-        "title": "API Version Changer"
+        "command": "saleforce-easy-help.findReplaceAPI",
+        "title": "EasyHelp: API Version Changer"
+      },
+      {
+        "command": "saleforce-easy-help.installSFPowerKit",
+        "title": "EasyHelp: Install SF Power Kit"
+      },
+      {
+        "command": "saleforce-easy-help.getManifest",
+        "title": "EasyHelp: Get Manifest"
       }
     ]
   },
