@@ -7,69 +7,69 @@ function activate(context) {
 
 	console.log('Congratulations, your extension "saleforce-easy-help" is now active!');
 
-		// API Version Changer
-		var getNewAPI = async (api) => {
+	// API Version Changer
+	var getNewAPI = async (api) => {
 
-			const newAPI = await vscode.window.showInputBox({
-				placeHolder: 'Enter New API',
-				prompt: 'ex: 52'
-			});
-	
-			if ( newAPI !== undefined ){
-	
-				let query = '(?<=<apiVersion>)[\\d]{2}(?=(.)[\\d]</apiVersion>$)';
-				let replace = newAPI.indexOf('.') == -1 ? newAPI : newAPI.substring( 0, newAPI.indexOf('.') );
-				
-				vscode.commands.executeCommand(
-					'workbench.action.findInFiles',{
-						query: query,
-						replace: replace,
-						triggerSearch: true,
-						matchWholeWord: false,
-						isCaseSensitive: false,
-						isRegex: true,
-						filesToInclude: '*/' + api + '/*'
-					}
-				);
-	
-			}
-		}	
-		let disposable = vscode.commands.registerCommand('saleforce-easy-help.findReplaceAPI', function () {
-	
-			let items = [
-				{
-					label: 'Apex Classes',
-					api: 'classes'
-				},
-				{
-					label: 'Lightning Components',
-					api: 'aura'
-				},
-				{
-					label: 'Lightning Web Components',
-					api: 'lwc'
-				},
-				{
-					label: 'Visualforce Pages',
-					api: 'pages'
-				}
-			];
-	
-			vscode.window.showQuickPick(items).then( item => {
-				if ( !item )
-					return;
-				else
-					getNewAPI(item.api);
-			});
-	
-		} );
-	
-		// Install SF Power Kit
-		let installSFPowerKit = vscode.commands.registerCommand('saleforce-easy-help.installSFPowerKit', function () {
-			let term = vscode.window.createTerminal('sfPowerKit Installation');
-			term.show();
-			term.sendText('sfdx plugins:install sfpowerkit');
+		const newAPI = await vscode.window.showInputBox({
+			placeHolder: 'Enter New API',
+			prompt: 'ex: 52'
 		});
+
+		if ( newAPI !== undefined ){
+
+			let query = '(?<=<apiVersion>)[\\d]{2}(?=(.)[\\d]</apiVersion>$)';
+			let replace = newAPI.indexOf('.') == -1 ? newAPI : newAPI.substring( 0, newAPI.indexOf('.') );
+			
+			vscode.commands.executeCommand(
+				'workbench.action.findInFiles',{
+					query: query,
+					replace: replace,
+					triggerSearch: true,
+					matchWholeWord: false,
+					isCaseSensitive: false,
+					isRegex: true,
+					filesToInclude: '*/' + api + '/*'
+				}
+			);
+
+		}
+	}	
+	let disposable = vscode.commands.registerCommand('saleforce-easy-help.findReplaceAPI', function () {
+
+		let items = [
+			{
+				label: 'Apex Classes',
+				api: 'classes'
+			},
+			{
+				label: 'Lightning Components',
+				api: 'aura'
+			},
+			{
+				label: 'Lightning Web Components',
+				api: 'lwc'
+			},
+			{
+				label: 'Visualforce Pages',
+				api: 'pages'
+			}
+		];
+
+		vscode.window.showQuickPick(items).then( item => {
+			if ( !item )
+				return;
+			else
+				getNewAPI(item.api);
+		});
+
+	});
+
+	// Install SF Power Kit
+	let installSFPowerKit = vscode.commands.registerCommand('saleforce-easy-help.installSFPowerKit', function () {
+		let term = vscode.window.createTerminal('sfPowerKit Installation');
+		term.show();
+		term.sendText('sfdx plugins:install sfpowerkit');
+	});
 
 	// Get Manifest
 
@@ -182,15 +182,8 @@ function activate(context) {
 
 	let getManifest = vscode.commands.registerCommand('saleforce-easy-help.getManifest', getPackageFileName );
 
-	let installSFPowerKit = vscode.commands.registerCommand('saleforce-easy-help.installSFPowerKit', function () {
-
-		let term = vscode.window.createTerminal('sfPowerKit Installation');
-		term.show();
-		term.sendText('sfdx plugins:install sfpowerkit');
-	});
-
 	
-	var getCompleteManifest = async () => {
+	/* var getCompleteManifest = async () => {
 
 		const fileName = await vscode.window.showInputBox({
 			placeHolder: "Enter File Name",
@@ -205,11 +198,10 @@ function activate(context) {
 			term.show();
 			term.sendText(query);
 			
+			return;
 		}
-	};
-	
-	let completeManifest = vscode.commands.registerCommand('saleforce-easy-help.completeManifest', getCompleteManifest );
-	
+	}; */
+
 	context.subscriptions.push(disposable);
 	context.subscriptions.push(installSFPowerKit);
 	context.subscriptions.push(getManifest);
