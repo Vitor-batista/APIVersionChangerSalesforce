@@ -6,7 +6,7 @@ This extension will provide some features to help you work with salesforce.
 
 # How it works
 
-You have 3 available commands
+You have 3 available commands That you can run in the <b>Command Palette</b> (Ctrl+Shift+P)
 
     EasyHelp: API Version Changer
 
@@ -14,8 +14,7 @@ You have 3 available commands
 
     EasyHelp: Get Manifest
 
-
-That you can run in the <b>Command Palette</b> (Ctrl+Shift+P)
+<img src="https://img001.prntscr.com/file/img001/mEpLG8Q0QFqhbCJOoRkawg.png">
 
 <br>
 
@@ -25,13 +24,29 @@ That you can run in the <b>Command Palette</b> (Ctrl+Shift+P)
 
 ### API Version Changer
 
-By executing this command, a picklist will appear asking for the Object that you want to update, after that picklist an input box will show up, just enter the new API value, now the tab <b>Search Replace</b> will pop up filled with the RegEx ready to change the API version of all the files in your vsCode, click <b>Replace all</b> (Ctrl+Alt+Enter) and be happy. 
+By executing this command, a picklist will appear asking for the Object that you want to update
+
+<img src="https://img001.prntscr.com/file/img001/_1N-JY5aRMWZoa6rL7Ho1Q.png">
+
+Now, an input box will show up, just enter the new API value and press enter 
+
+<img src="https://img001.prntscr.com/file/img001/PomAo_gCS-GRY-EqRr4gSA.png">
+
+As you can see the tab <b>Search Replace</b> will pop up filled with the RegEx ready to change the API version of the files in your vsCode, click <b>Replace all</b> (Ctrl+Alt+Enter) and be happy
+
+<img src="https://img001.prntscr.com/file/img001/dpMHMt1YSWWRZapRoMDTtQ.png">
 
 <br>
 
 ### Install SF Power Kit
 
-By executing this command, the terminal will open executing the command to install the SF Power Kit, you may need to accept plugin installation
+By executing this command, the terminal will open executing the command to install the SF Power Kit
+
+<img src="https://img001.prntscr.com/file/img001/BY-XUReITS2DY89pPuL4IA.png">
+
+Accept plugin installation and you're good to go
+
+<img src="https://img001.prntscr.com/file/img001/8S5Hf98BTvmnyNGYyarxVg.png">
 
 <br>
 
