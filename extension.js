@@ -19,7 +19,7 @@ function activate(context) {
 
 			let query = '(?<=<apiVersion>)[\\d]{2}(?=(.)[\\d]</apiVersion>$)';
 			let replace = newAPI.indexOf('.') == -1 ? newAPI : newAPI.substring( 0, newAPI.indexOf('.') );
-			
+
 			vscode.commands.executeCommand(
 				'workbench.action.findInFiles',{
 					query: query,
@@ -33,7 +33,7 @@ function activate(context) {
 			);
 
 		}
-	}	
+	}
 	let disposable = vscode.commands.registerCommand('saleforce-easy-help.findReplaceAPI', function () {
 
 		let items = [
@@ -113,8 +113,8 @@ function activate(context) {
 		}
 
 		if ( include || exclude ){
-			
-			let query = 
+
+			let query =
 				'sfdx sfpowerkit:org:manifest:build -o manifest/' + fileName + '.xml' +
 				( include ? ' -i "' + include + '"' : '' ) +
 				( exclude ? ' -e "CustomObjectTranslation,' + exclude + '"' : '' );
@@ -142,7 +142,7 @@ function activate(context) {
 				return;
 			else{
 
-				if ( pacType.label === 'Complete' )  
+				if ( pacType.label === 'Complete' )
 					getCompleteManifest(fileName);
 				else {
 
@@ -158,10 +158,10 @@ function activate(context) {
 					];
 
 					vscode.window.showQuickPick(customType).then( cusType => {
-					
+
 						if ( !cusType )
 							return;
-						else 
+						else
 							getCustomManifest( cusType.label, fileName );
 					});
 				}
@@ -182,7 +182,7 @@ function activate(context) {
 
 	let getManifest = vscode.commands.registerCommand('saleforce-easy-help.getManifest', getPackageFileName );
 
-	
+
 	/* var getCompleteManifest = async () => {
 
 		const fileName = await vscode.window.showInputBox({
@@ -193,11 +193,11 @@ function activate(context) {
 		if ( fileName !== undefined ){
 
 			let query = "sfdx sfpowerkit:org:manifest:build -o manifest/" + fileName + ".xml -e 'CustomObjectTranslation'";
-			
+
 			let term = vscode.window.createTerminal('Get Big manifest');
 			term.show();
 			term.sendText(query);
-			
+
 			return;
 		}
 	}; */
