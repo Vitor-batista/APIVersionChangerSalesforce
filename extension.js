@@ -84,6 +84,69 @@ function activate(context) {
 		showTerminal(query);
 	}
 
+	var getManually = async () => {
+		const getIncludeExclude = await vscode.window.showInputBox({
+			placeHolder: 'Enter Files or Types to Include (always with comma in between)',
+			prompt: 'ex: ApexClass,LightningComponentBundle'
+		});
+
+		if ( getIncludeExclude !== undefined )
+			return getIncludeExclude;
+	}
+
+	let selectedValues = {
+		data: [],
+		get getString() {
+			return this.log.map( x => ' ' + x ).toString().substr(1);
+		}
+	};
+
+	var getMetadataComponentes  = async () => {
+
+		let customType = [
+			{ label: 'Actual', detail: selectedValues.getString, description: 'jsAction' },
+			{ label: 'Done', description: 'jsAction' },
+			{ label: 'Add manually', description: 'jsAction' },
+			{ label: 'Apex Class', description: 'ApexClass' },
+			{ label: 'Apex Trigger', description: 'ApexTrigger' },
+			{ label: 'Aura Component', description: 'AuraDefinitionBundle' },
+			{ label: 'Lightning Web Component', description: 'LightningComponentBundle' },
+			{ label: 'Visualforce Page', description: 'ApexPage' },
+			{ label: 'Visualfroce Component', description: 'ApexComponent' },
+			{ label: 'Objetos', description: 'CustomObject' },
+		];
+
+		let isFinished = false;
+		let response = '';
+
+		do {
+			
+			vscode.window.showQuickPick(customType).then( cusType => {
+
+				if ( !cusType )
+					return;
+				else{
+					if ( cusType.description == 'jsAction' ){
+
+						if ( cusType.label == 'Actual' )
+							return;
+						else if ( cusType.label == 'Add Manually' )
+							response = getManually().toString();
+						else if ( cusType.label == 'Done' ){
+							response = 'Done';
+							isFinished = true;
+						}
+					}
+					else
+						selectedValues.data.push(cusType.description);
+				}
+			});
+		} while ( ! isFinished )
+
+		if ( response == 'Done' )
+			return selectedValues.data.toString();
+	}
+
 	var getCustomManifest = async ( type, fileName ) => {
 
 		let include;
@@ -91,10 +154,7 @@ function activate(context) {
 
 		if ( type === 'Include' ){
 
-			const getInclude = await vscode.window.showInputBox({
-				placeHolder: 'Enter Files or Types to Include (always with comma in between)',
-				prompt: 'ex: ApexClass,LightningComponentBundle'
-			})
+			const getInclude = await getMetadataComponentes();
 
 			if ( getInclude !== undefined ){
 				include = getInclude;
@@ -180,8 +240,69 @@ function activate(context) {
 			execPackageCreate(fileName);
 	};
 
-	let getManifest = vscode.commands.registerCommand('saleforce-easy-help.getManifest', getPackageFileName );
+	let getManifest = vscode.commands.registerCommand( 'saleforce-easy-help.getManifest', getPackageFileName );
 
+	// Retive Chnage Set
+
+	var retriveChangeSetInput = {
+		name: '',
+		org: '',
+		path: ''
+	};
+
+	var showTerminalRetriceChangeSet = function () {
+		let term = vscode.window.createTerminal('retriveChangeSet');
+		term.show();
+		term.sendText(
+			'sfdx force:mdapi:retrieve -w 10' +
+			' -p ' + retriveChangeSetInput.name +
+			' -u ' + retriveChangeSetInput.org +
+			' -r ' + retriveChangeSetInput.path
+		);
+	};
+
+	var getPath = async () => {
+
+		const path = await vscode.window.showInputBox({
+			placeHolder: 'Enter Path',
+			prompt: 'The path were the zip will be saved'
+		});
+
+		if ( path !== undefined ){
+			retriveChangeSetInput.path = path;
+			showTerminalRetriceChangeSet();
+		}
+	};
+
+	var getOrg = async () => {
+
+		const originOrg = await vscode.window.showInputBox({
+			placeHolder: 'Enter Origin Org',
+			prompt: 'The name of the org saved in your computer'
+
+		});
+
+		if ( originOrg !== undefined ){
+			retriveChangeSetInput.org = originOrg;
+			getPath();
+		}
+	};
+
+	var getName = async () => {
+
+		const name = await vscode.window.showInputBox({
+			placeHolder: 'Enter The Name of the Change Set',
+			prompt: 'The name of change set that you want to retrive'
+		});
+
+		if ( name !== undefined ){
+			retriveChangeSetInput.name = name;
+			getOrg();
+		}
+	};
+
+
+	let retriveChangeSet = vscode.commands.registerCommand( 'saleforce-easy-help.retriveChangeSet', getName );
 
 	/* var getCompleteManifest = async () => {
 
@@ -205,6 +326,7 @@ function activate(context) {
 	context.subscriptions.push(disposable);
 	context.subscriptions.push(installSFPowerKit);
 	context.subscriptions.push(getManifest);
+	context.subscriptions.push(retriveChangeSet);
 }
 
 function deactivate() {}

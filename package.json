@@ -13,7 +13,8 @@
   "activationEvents": [
     "onCommand:saleforce-easy-help.findReplaceAPI",
     "onCommand:saleforce-easy-help.installSFPowerKit",
-    "onCommand:saleforce-easy-help.getManifest"
+    "onCommand:saleforce-easy-help.getManifest",
+    "onCommand:saleforce-easy-help.retriveChangeSet"
   ],
   "main": "./extension.js",
   "contributes": {
@@ -29,6 +30,10 @@
       {
         "command": "saleforce-easy-help.getManifest",
         "title": "EasyHelp: Get Manifest"
+      },
+      {
+        "command": "saleforce-easy-help.retriveChangeSet",
+        "title": "EasyHelp: Retrive Change Set"
       }
     ]
   },
