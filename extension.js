@@ -84,6 +84,26 @@ function activate(context) {
 		showTerminal(query);
 	}
 
+	let selectedValues = {
+		data: [],
+		get getString() {
+			return this.data.map( x => ' ' + x ).toString().substr(1);
+		}
+	};
+
+	let quickPickList = [
+		{ label: 'Actual', detail: selectedValues.getString },
+		{ label: 'Done', description: 'jsAction' },
+		{ label: 'Add Manually', description: 'jsAction' },
+		{ label: 'Apex Class', description: 'ApexClass' },
+		{ label: 'Apex Trigger', description: 'ApexTrigger' },
+		{ label: 'Aura Component', description: 'AuraDefinitionBundle' },
+		{ label: 'Lightning Web Component', description: 'LightningComponentBundle' },
+		{ label: 'Visualforce Page', description: 'ApexPage' },
+		{ label: 'Visualfroce Component', description: 'ApexComponent' },
+		{ label: 'Objetos', description: 'CustomObject' }
+	];
+
 	var getManually = async () => {
 		const getIncludeExclude = await vscode.window.showInputBox({
 			placeHolder: 'Enter Files or Types to Include (always with comma in between)',
@@ -94,57 +114,33 @@ function activate(context) {
 			return getIncludeExclude;
 	}
 
-	let selectedValues = {
-		data: [],
-		get getString() {
-			return this.log.map( x => ' ' + x ).toString().substr(1);
-		}
-	};
+	var getMetadataComponentes = async () => {
+	// var getMetadataComponentes = function () {
 
-	var getMetadataComponentes  = async () => {
+		var returner = false;
 
-		let customType = [
-			{ label: 'Actual', detail: selectedValues.getString, description: 'jsAction' },
-			{ label: 'Done', description: 'jsAction' },
-			{ label: 'Add manually', description: 'jsAction' },
-			{ label: 'Apex Class', description: 'ApexClass' },
-			{ label: 'Apex Trigger', description: 'ApexTrigger' },
-			{ label: 'Aura Component', description: 'AuraDefinitionBundle' },
-			{ label: 'Lightning Web Component', description: 'LightningComponentBundle' },
-			{ label: 'Visualforce Page', description: 'ApexPage' },
-			{ label: 'Visualfroce Component', description: 'ApexComponent' },
-			{ label: 'Objetos', description: 'CustomObject' },
-		];
+		const item = await vscode.window.showQuickPick(quickPickList);
 
-		let isFinished = false;
-		let response = '';
+		if( item ){
 
-		do {
-			
-			vscode.window.showQuickPick(customType).then( cusType => {
+			if ( item.label == 'Actual' )
+				return;
 
-				if ( !cusType )
-					return;
+			if ( item.description == 'jsAction' ){
+
+				if ( item.label == 'Done' )
+					returner = true;
 				else{
-					if ( cusType.description == 'jsAction' ){
-
-						if ( cusType.label == 'Actual' )
-							return;
-						else if ( cusType.label == 'Add Manually' )
-							response = getManually().toString();
-						else if ( cusType.label == 'Done' ){
-							response = 'Done';
-							isFinished = true;
-						}
-					}
-					else
-						selectedValues.data.push(cusType.description);
+					const manualInsert = await getManually();
+					if ( manualInsert )
+						selectedValues.data.push(...manualInsert.toString().split(','));
 				}
-			});
-		} while ( ! isFinished )
+			}
+			else
+				selectedValues.data.push(item.description);
+		}
 
-		if ( response == 'Done' )
-			return selectedValues.data.toString();
+		return returner;
 	}
 
 	var getCustomManifest = async ( type, fileName ) => {
@@ -154,11 +150,22 @@ function activate(context) {
 
 		if ( type === 'Include' ){
 
-			const getInclude = await getMetadataComponentes();
+			var isFinished;
+			do {
 
-			if ( getInclude !== undefined ){
-				include = getInclude;
-			}
+				let getIsFinished = await getMetadataComponentes();
+
+				if ( getIsFinished !== undefined )
+					isFinished = getIsFinished;
+
+			} while( ! isFinished );
+
+			let query =
+				'sfdx sfpowerkit:org:manifest:build -o manifest/' + fileName + '.xml' +
+				( include ? ' -i "' + selectedValues.data.toString() + '"' : '' ) +
+				( exclude ? ' -e "CustomObjectTranslation,' + exclude + '"' : '' );
+
+			showTerminal(query);
 	}
 
 		if ( type === 'Exclude' ){
