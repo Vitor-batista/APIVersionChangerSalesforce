@@ -7,7 +7,8 @@ function activate(context) {
 
 	console.log('Congratulations, your extension "saleforce-easy-help" is now active!');
 
-	// API Version Changer
+	// ** API Version Changer
+
 	var getNewAPI = async (api) => {
 
 		const newAPI = await vscode.window.showInputBox({
@@ -64,19 +65,21 @@ function activate(context) {
 
 	});
 
-	// Install SF Power Kit
+	// ** Install SF Power Kit
+
 	let installSFPowerKit = vscode.commands.registerCommand('saleforce-easy-help.installSFPowerKit', function () {
 		let term = vscode.window.createTerminal('sfPowerKit Installation');
 		term.show();
 		term.sendText('sfdx plugins:install sfpowerkit');
 	});
 
-	// Get Manifest
+	// ** Get Manifest
 
 	var showTerminal = function (query) {
 		let term = vscode.window.createTerminal('Get manifest');
 		term.show();
 		term.sendText(query);
+		selectedValues.data = [];
 	}
 
 	var getCompleteManifest = async ( fileName ) => {
@@ -87,14 +90,14 @@ function activate(context) {
 	let selectedValues = {
 		data: [],
 		get getString() {
-			return this.data.map( x => ' ' + x ).toString().substr(1);
+			return this.data.map( x => ' ' + x ).toString().slice(1);
 		}
 	};
 
 	let quickPickList = [
-		{ label: 'Actual', detail: selectedValues.getString },
-		{ label: 'Done', description: 'jsAction' },
-		{ label: 'Add Manually', description: 'jsAction' },
+		{ label: 'Actual', description: '' },
+		{ label: 'Done', description: '' },
+		{ label: 'Add Manually', description: '' },
 		{ label: 'Apex Class', description: 'ApexClass' },
 		{ label: 'Apex Trigger', description: 'ApexTrigger' },
 		{ label: 'Aura Component', description: 'AuraDefinitionBundle' },
@@ -115,18 +118,24 @@ function activate(context) {
 	}
 
 	var getMetadataComponentes = async () => {
-	// var getMetadataComponentes = function () {
 
 		var returner = false;
 
-		const item = await vscode.window.showQuickPick(quickPickList);
+		let quickPickListLocal = quickPickList.filter( x => ! selectedValues.data.includes(x.description) );
+
+		if ( selectedValues.getString == '' )
+			quickPickListLocal.shift();
+		else
+			quickPickListLocal[0].detail = selectedValues.getString;
+
+		const item = await vscode.window.showQuickPick(quickPickListLocal);
 
 		if( item ){
 
 			if ( item.label == 'Actual' )
 				return;
 
-			if ( item.description == 'jsAction' ){
+			if ( item.description == '' ){
 
 				if ( item.label == 'Done' )
 					returner = true;
@@ -145,49 +154,27 @@ function activate(context) {
 
 	var getCustomManifest = async ( type, fileName ) => {
 
-		let include;
-		let exclude;
+		let include = ( type == 'Include') , exclude = ( type == 'Exclude');
 
-		if ( type === 'Include' ){
+		var isFinished;
 
-			var isFinished;
-			do {
+		do {
 
-				let getIsFinished = await getMetadataComponentes();
+			let getIsFinished = await getMetadataComponentes();
 
-				if ( getIsFinished !== undefined )
-					isFinished = getIsFinished;
+			if ( getIsFinished !== undefined )
+				isFinished = getIsFinished;
 
-			} while( ! isFinished );
+		} while( ! isFinished );
 
-			let query =
-				'sfdx sfpowerkit:org:manifest:build -o manifest/' + fileName + '.xml' +
-				( include ? ' -i "' + selectedValues.data.toString() + '"' : '' ) +
-				( exclude ? ' -e "CustomObjectTranslation,' + exclude + '"' : '' );
+		const selected = selectedValues.data.toString();
 
-			showTerminal(query);
-	}
+		let query =
+			'sfdx sfpowerkit:org:manifest:build -o manifest/' + fileName + '.xml' +
+			( include ? ' -i "' + selected + '"' : '' ) +
+			( exclude ? ' -e "CustomObjectTranslation,' + selected + '"' : '' );
 
-		if ( type === 'Exclude' ){
-
-			const getExclude = await vscode.window.showInputBox({
-				placeHolder: 'Enter Files or Types to Exclude (always with comma in between)',
-				prompt: 'ex: ApexClass,LightningComponentBundle'
-			})
-
-			if ( getExclude !== undefined )
-				exclude = getExclude;
-		}
-
-		if ( include || exclude ){
-
-			let query =
-				'sfdx sfpowerkit:org:manifest:build -o manifest/' + fileName + '.xml' +
-				( include ? ' -i "' + include + '"' : '' ) +
-				( exclude ? ' -e "CustomObjectTranslation,' + exclude + '"' : '' );
-
-			showTerminal(query);
-		}
+		showTerminal(query);
 	};
 
 	var execPackageCreate = function (fileName) {
@@ -249,7 +236,7 @@ function activate(context) {
 
 	let getManifest = vscode.commands.registerCommand( 'saleforce-easy-help.getManifest', getPackageFileName );
 
-	// Retive Chnage Set
+	// ** Retive Chnage Set
 
 	var retriveChangeSetInput = {
 		name: '',
@@ -311,24 +298,7 @@ function activate(context) {
 
 	let retriveChangeSet = vscode.commands.registerCommand( 'saleforce-easy-help.retriveChangeSet', getName );
 
-	/* var getCompleteManifest = async () => {
-
-		const fileName = await vscode.window.showInputBox({
-			placeHolder: "Enter File Name",
-			prompt: "ex: bigManifest"
-		});
-
-		if ( fileName !== undefined ){
-
-			let query = "sfdx sfpowerkit:org:manifest:build -o manifest/" + fileName + ".xml -e 'CustomObjectTranslation'";
-
-			let term = vscode.window.createTerminal('Get Big manifest');
-			term.show();
-			term.sendText(query);
-
-			return;
-		}
-	}; */
+	// ** Context
 
 	context.subscriptions.push(disposable);
 	context.subscriptions.push(installSFPowerKit);
