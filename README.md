@@ -134,7 +134,7 @@ Done, the command will be executed, if everthing is fine the change set will be 
 17 / 11 / 2021 - Extension released.<br>
 07 / 04 / 2022 - 1.1.0 released.<br>
 12 / 05 / 2022 - 1.2.0 released.<br>
-?? / 03 / 2022 - 1.3.0 released.<br>
+03 / 10 / 2022 - 1.3.0 released.<br>
 
 <br>
 
@@ -201,7 +201,7 @@ Added the <b>include</b> and <b>exclude</b> options in command ***EasyHelp: GetM
 
 3.
 
-***EasyHelp: API Version Changer*** :  will now ask the type of Object you want to update
+***EasyHelp: API Version Changer*** :  will now ask the type of Object that you want to update
 
 <br>
 
@@ -219,7 +219,7 @@ New function
 
 2.
 
-***EasyHelp: GetManifest*** : started having picklist to choose **CustomMetadata** componentes
+***EasyHelp: GetManifest*** : started having a picklist to choose **CustomMetadata** components
 
 <br>
 
