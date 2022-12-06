@@ -298,12 +298,39 @@ function activate(context) {
 
 	let retriveChangeSet = vscode.commands.registerCommand( 'saleforce-easy-help.retriveChangeSet', getName );
 
+
+	// ** Refresh Token
+
+	var showTerminalLogoutInstance = function ( orgName ) {
+		let term = vscode.window.createTerminal('logoutInstance');
+		term.show();
+		term.sendText(
+			'sfdx force:auth:logout -u ' + orgName
+		);
+	};
+
+	var getInstance = async () => {
+
+		const instance =  await vscode.window.showInputBox({
+			prompt: 'Enter the username or key of the instance',
+			placeHolder: 'Ex: \'user@salesforce.test\' or \'userProd\''
+		});
+
+		if ( instance !== undefined ){
+			showTerminalLogoutInstance(instance);
+		}
+	};
+
+	let logoutInstance = vscode.commands.registerCommand( 'saleforce-easy-help.logoutInstance', getInstance );
+
+
 	// ** Context
 
 	context.subscriptions.push(disposable);
 	context.subscriptions.push(installSFPowerKit);
 	context.subscriptions.push(getManifest);
 	context.subscriptions.push(retriveChangeSet);
+	context.subscriptions.push(logoutInstance);
 }
 
 function deactivate() {}
