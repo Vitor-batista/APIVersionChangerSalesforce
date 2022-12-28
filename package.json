@@ -16,6 +16,7 @@
     "onCommand:salesforce-easy-help.getManifest",
     "onCommand:salesforce-easy-help.retriveChangeSet",
     "onCommand:salesforce-easy-help.logoutInstance",
+    "onCommand:salesforce-easy-help.createMetadataRecords"
   ],
   "main": "./extension.js",
   "contributes": {
@@ -39,6 +40,10 @@
       {
         "command": "salesforce-easy-help.logoutInstance",
         "title": "EasyHelp: Logout From Instance"
+      },
+      {
+        "command": "salesforce-easy-help.createMetadataRecords",
+        "title": "EasyHelp: Create Metadata Records"
       }
     ]
   },

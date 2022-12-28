@@ -324,6 +324,51 @@ function activate(context) {
 	let logoutInstance = vscode.commands.registerCommand( 'salesforce-easy-help.logoutInstance', getInstance );
 
 
+	// ** Create Metadata Records
+
+	var createMetadataRecordsInfo = {
+		metadataName: '',
+		filePath: ''
+	};
+
+	var showTerminalCreateMetadataRecords = function () {
+		let term = vscode.window.createTerminal('createMetadataRecords');
+		term.show();
+		term.sendText(
+			'sfdx force:cmdt:record:insert' +
+			' -t ' + createMetadataRecordsInfo.metadataName +
+			' -f ' + createMetadataRecordsInfo.filePath
+		);
+	};
+
+	var getFilePath = async () => {
+
+		const filePath = await vscode.window.showInputBox({
+			prompt: 'Enter the path of the csv file',
+			placeHolder: 'Ex: \'c:\\files\\file.csv\''
+		});
+
+		if ( filePath !== undefined ){
+			createMetadataRecordsInfo.filePath = filePath;
+			showTerminalCreateMetadataRecords();
+		}
+	};
+
+	var getMetadataName = async () => {
+
+		const metadataName = await vscode.window.showInputBox({
+			prompt: 'Enter the API name of the Metadata',
+			placeHolder: 'Ex: \'Api_Name__mtd\' or \'Api_Name\''
+		});
+
+		if ( metadataName !== undefined ){
+			createMetadataRecordsInfo.metadataName = metadataName;
+			getFilePath();
+		}
+	};
+
+	let createMetadataRecords = vscode.commands.registerCommand( 'salesforce-easy-help.createMetadataRecords', getMetadataName );
+
 	// ** Context
 
 	context.subscriptions.push(disposable);
@@ -331,6 +376,7 @@ function activate(context) {
 	context.subscriptions.push(getManifest);
 	context.subscriptions.push(retriveChangeSet);
 	context.subscriptions.push(logoutInstance);
+	context.subscriptions.push(createMetadataRecords);
 }
 
 function deactivate() {}
