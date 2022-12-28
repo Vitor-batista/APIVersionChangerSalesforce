@@ -1,5 +1,5 @@
 {
-  "name": "saleforce-easy-help",
+  "name": "salesforce-easy-help",
   "displayName": "Salesforce EasyHelp",
   "description": "Some featues to help you work with salesforce",
   "version": "1.4.0",
@@ -11,33 +11,33 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:saleforce-easy-help.findReplaceAPI",
-    "onCommand:saleforce-easy-help.installSFPowerKit",
-    "onCommand:saleforce-easy-help.getManifest",
-    "onCommand:saleforce-easy-help.retriveChangeSet",
-    "onCommand:saleforce-easy-help.logoutInstance"
+    "onCommand:salesforce-easy-help.findReplaceAPI",
+    "onCommand:salesforce-easy-help.installSFPowerKit",
+    "onCommand:salesforce-easy-help.getManifest",
+    "onCommand:salesforce-easy-help.retriveChangeSet",
+    "onCommand:salesforce-easy-help.logoutInstance",
   ],
   "main": "./extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "saleforce-easy-help.findReplaceAPI",
+        "command": "salesforce-easy-help.findReplaceAPI",
         "title": "EasyHelp: API Version Changer"
       },
       {
-        "command": "saleforce-easy-help.installSFPowerKit",
+        "command": "salesforce-easy-help.installSFPowerKit",
         "title": "EasyHelp: Install SF Power Kit"
       },
       {
-        "command": "saleforce-easy-help.getManifest",
+        "command": "salesforce-easy-help.getManifest",
         "title": "EasyHelp: Get Manifest"
       },
       {
-        "command": "saleforce-easy-help.retriveChangeSet",
+        "command": "salesforce-easy-help.retriveChangeSet",
         "title": "EasyHelp: Retrive Change Set"
       },
       {
-        "command": "saleforce-easy-help.logoutInstance",
+        "command": "salesforce-easy-help.logoutInstance",
         "title": "EasyHelp: Logout From Instance"
       }
     ]

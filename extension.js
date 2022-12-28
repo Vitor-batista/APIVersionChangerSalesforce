@@ -5,7 +5,7 @@ const vscode = require('vscode');
  */
 function activate(context) {
 
-	console.log('Congratulations, your extension "saleforce-easy-help" is now active!');
+	console.log('Congratulations, your extension "salesforce-easy-help" is now active!');
 
 	// ** API Version Changer
 
@@ -35,7 +35,7 @@ function activate(context) {
 
 		}
 	}
-	let disposable = vscode.commands.registerCommand('saleforce-easy-help.findReplaceAPI', function () {
+	let disposable = vscode.commands.registerCommand('salesforce-easy-help.findReplaceAPI', function () {
 
 		let items = [
 			{
@@ -67,7 +67,7 @@ function activate(context) {
 
 	// ** Install SF Power Kit
 
-	let installSFPowerKit = vscode.commands.registerCommand('saleforce-easy-help.installSFPowerKit', function () {
+	let installSFPowerKit = vscode.commands.registerCommand('salesforce-easy-help.installSFPowerKit', function () {
 		let term = vscode.window.createTerminal('sfPowerKit Installation');
 		term.show();
 		term.sendText('sfdx plugins:install sfpowerkit');
@@ -234,7 +234,7 @@ function activate(context) {
 			execPackageCreate(fileName);
 	};
 
-	let getManifest = vscode.commands.registerCommand( 'saleforce-easy-help.getManifest', getPackageFileName );
+	let getManifest = vscode.commands.registerCommand( 'salesforce-easy-help.getManifest', getPackageFileName );
 
 	// ** Retive Chnage Set
 
@@ -296,7 +296,7 @@ function activate(context) {
 	};
 
 
-	let retriveChangeSet = vscode.commands.registerCommand( 'saleforce-easy-help.retriveChangeSet', getName );
+	let retriveChangeSet = vscode.commands.registerCommand( 'salesforce-easy-help.retriveChangeSet', getName );
 
 
 	// ** Refresh Token
@@ -321,7 +321,7 @@ function activate(context) {
 		}
 	};
 
-	let logoutInstance = vscode.commands.registerCommand( 'saleforce-easy-help.logoutInstance', getInstance );
+	let logoutInstance = vscode.commands.registerCommand( 'salesforce-easy-help.logoutInstance', getInstance );
 
 
 	// ** Context
