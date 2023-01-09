@@ -170,6 +170,7 @@ function activate(context) {
 	};
 
 	var showTerminalCreateMetadataRecords = function () {
+
 		let term = vscode.window.createTerminal('createMetadataRecords');
 		term.show();
 		term.sendText(
@@ -207,11 +208,52 @@ function activate(context) {
 
 	let createMetadataRecords = vscode.commands.registerCommand( 'salesforce-easy-help.createMetadataRecords', getMetadataName );
 
+
+	// ** Get Manifest (new)
+
+	var manifestFileName;
+
+	var showTerminalGetManifest = function ( username ) {
+
+		let term = vscode.window.createTerminal('createMetadataRecords');
+		term.show();
+		term.sendText(
+			'sfdx force:source:manifest:create' +
+			' --fromorg ' + username +
+			' -o \'manifest/\' -n ' + manifestFileName
+		);
+	};
+
+	var getOrgUsername = async () => {
+
+		let command = 'sfdx force:user:list --json';
+
+		childProcess.exec( command, ( error, result, errorDescription ) => {
+			if ( !error )
+				showTerminalGetManifest( JSON.parse(result).result[0].username );
+		});
+	};
+
+	var getManifestFileName = async () => {
+
+		const fileName = await vscode.window.showInputBox({
+			prompt: 'Enter File Name',
+			placeHolder: 'Ex: \'package\' or \'manifest\''
+		});
+
+		if ( fileName !== undefined ){
+			manifestFileName = fileName;
+			getOrgUsername();
+		}
+	};
+
+	let getManifestFile = vscode.commands.registerCommand( 'salesforce-easy-help.getManifestFile', getManifestFileName );
+
 	// ** Context
 
 	context.subscriptions.push(disposable);
 	context.subscriptions.push(installSFPowerKit);
-	context.subscriptions.push(getManifest);
+	context.subscriptions.push(getManifestFile);
 	context.subscriptions.push(retriveChangeSet);
 	context.subscriptions.push(logoutInstance);
 	context.subscriptions.push(createMetadataRecords);

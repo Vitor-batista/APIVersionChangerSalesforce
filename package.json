@@ -13,7 +13,7 @@
   "activationEvents": [
     "onCommand:salesforce-easy-help.findReplaceAPI",
     "onCommand:salesforce-easy-help.installSFPowerKit",
-    "onCommand:salesforce-easy-help.getManifest",
+    "onCommand:salesforce-easy-help.getManifestFile",
     "onCommand:salesforce-easy-help.retriveChangeSet",
     "onCommand:salesforce-easy-help.logoutInstance",
     "onCommand:salesforce-easy-help.createMetadataRecords"
@@ -30,8 +30,8 @@
         "title": "EasyHelp: Install SF Power Kit"
       },
       {
-        "command": "salesforce-easy-help.getManifest",
-        "title": "EasyHelp: Get Manifest"
+        "command": "salesforce-easy-help.getManifestFile",
+        "title": "EasyHelp: Get Manifest File"
       },
       {
         "command": "salesforce-easy-help.retriveChangeSet",
