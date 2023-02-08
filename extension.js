@@ -1,5 +1,5 @@
 const vscode = require('vscode');
-const childProcess = require('child_process')
+const childProcess = require('child_process');
 
 /**
  * @param {vscode.ExtensionContext} context
@@ -180,6 +180,23 @@ function activate(context) {
 		);
 	};
 
+	var retiveCustomMetadataObject = function () {
+
+		let command =
+			'sfdx force:source:retrieve ' +
+			'-m CustomObject:' + createMetadataRecordsInfo.metadataName
+
+
+		childProcess.exec( command, ( error, result, errorDescription ) => {
+			if ( error )
+				vscode.window.showErrorMessage(
+					error.message + ' | ' + errorDescription
+				);
+			else
+				showTerminalCreateMetadataRecords();
+		});
+	};
+
 	var getFilePath = async () => {
 
 		const filePath = await vscode.window.showInputBox({
@@ -189,7 +206,7 @@ function activate(context) {
 
 		if ( filePath !== undefined ){
 			createMetadataRecordsInfo.filePath = filePath;
-			showTerminalCreateMetadataRecords();
+			retiveCustomMetadataObject();
 		}
 	};
 
@@ -201,7 +218,7 @@ function activate(context) {
 		});
 
 		if ( metadataName !== undefined ){
-			createMetadataRecordsInfo.metadataName = metadataName;
+			createMetadataRecordsInfo.metadataName = metadataName.replace(/__mtd/, '');
 			getFilePath();
 		}
 	};
@@ -220,7 +237,8 @@ function activate(context) {
 		term.sendText(
 			'sfdx force:source:manifest:create' +
 			' --fromorg ' + username +
-			' -o \'manifest/\' -n ' + manifestFileName
+			' -o \'manifest/\' -n ' + manifestFileName +
+			' -c unlocked'
 		);
 	};
 

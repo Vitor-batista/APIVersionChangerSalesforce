@@ -4,24 +4,44 @@ This extension will provide some features to help you work with salesforce.
 
 <br>
 
-# How it works
+# Commands
 
-You have 3 available commands That you can run in the <b>Command Palette</b> (Ctrl+Shift+P)
+<a href='#APIVersionChanger'>
 
     EasyHelp: API Version Changer
 
-    EasyHelp: Install SF Power Kit
-
-    EasyHelp: Get Manifest
+</a>
+<a href='#RetriveChangeSet'>
 
     EasyHelp: Retrive Change Set
 
-<img src="https://img001.prntscr.com/file/img001/HPL4zypSTkSjOYMCfZ5zoQ.png">
+</a>
+<a href='#GetManifestFile'>
 
+    EasyHelp: Get Manifest File
+
+</a>
+<a href='#CreateMetadataRecords'>
+
+    EasyHelp: Create Metadata Records
+
+</a>
+<a href='#APIVersionChanger'>
+
+    EasyHelp: Retrive Change Set
+
+</a>
+<a href='#LogoutFromInstance'>
+
+    EasyHelp: Logout From Instance
+
+</a>
 <br>
 
 # Command description
 
+
+<div id='APIVersionChanger'></div>
 
 ## ***API Version Changer***
 
@@ -42,69 +62,8 @@ As you can see the tab <b>Search Replace</b> will pop up filled with the RegEx r
 <br>
 <br>
 
-## ***Install SF Power Kit***
 
-<br>
-
-By executing this command, the terminal will open executing the command to install the SF Power Kit
-
-<img src="https://img001.prntscr.com/file/img001/BY-XUReITS2DY89pPuL4IA.png">
-
-Accept plugin installation and you're good to go
-
-<img src="https://img001.prntscr.com/file/img001/8S5Hf98BTvmnyNGYyarxVg.png">
-
-<br>
-<br>
-
-## ***Get Manifest***
-
-<br>
-
-By executing this command, a window asking for the name of the file will open<br>
-
-<img src="https://img001.prntscr.com/file/img001/qmUmRdnETta3PaDKQ-s5HQ.png"><br>
-
-Now you have two options, either create a manifest that will get you all the information in the org or a manifest that you will be able to make limits for what is going to be retrieved<br>
-
-<img src="https://img001.prntscr.com/file/img001/WusU-mISSKiOZytOc3q-FQ.png">
-
-If you selected Complete <strike>congraju</strike> <strike>congratulashins</strike> <b>congrats</b>, You're done! Now the command will be executed and you will get your package<br>
-
-In case you selected Custom, another picklist will pop-up:
-
-Select <b>Include</b> in case you want to specify the files in a whitelist (only get what you type), or select <b>Exclude</b> in case you want to specify the files in a blacklist (don't get what you type)
-
-<img src="https://img001.prntscr.com/file/img001/xJ5CO2lVRY21SC2CHLjqug.png">
-
-After choosing the type of custom select one more picklist will appear, select all the files that you want to include/exclude ( the window will be shown until you select **Done** )
-
-<img src="https://img001.prntscr.com/file/img001/7uOBktoQSkG4HkAxeJgOvw.png">
-
-After selecting Apex Class:
-
-<img src="https://img001.prntscr.com/file/img001/x0Pq5lCwQnuQHioSBX8tew.png">
-
-After selecting Apex Trigger:
-
-<img src="https://img001.prntscr.com/file/img001/nDpeD1YgTfavo3TsXHrCJw.png">
-
-Case you need to use manual insertion just type the metadata componentes with ',' in between (like shown in the example)
-
-<img src="https://img001.prntscr.com/file/img001/KiwJQ-BaRBiXvX6xysLJfw.png">
-
-After using manual insertion (this example will not work):
-
-<img src="https://img001.prntscr.com/file/img001/tXxbZU3MT-mJIs_kihVgUw.png">
-
-<br>
-
-When Everything selected just choose the option **Done**, a command will be executed
-
-<img src="https://img001.prntscr.com/file/img001/Jg3HjWLxSdqYMYs5FEJq6A.png">
-
-<br>
-<br>
+<div id='RetriveChangeSet'></div>
 
 ## ***Retrive Change Set***
 
@@ -129,123 +88,48 @@ Done, the command will be executed, if everthing is fine the change set will be 
 <br>
 <br>
 
-# Release Notes
+<div id='GetManifestFile'></div>
 
-17 / 11 / 2021 - Extension released.<br>
-07 / 04 / 2022 - 1.1.0 released.<br>
-12 / 05 / 2022 - 1.2.0 released.<br>
-03 / 10 / 2022 - 1.3.0 released.<br>
+## ***Get Manifest File***
 
 <br>
 
-## 1.0.0
+Execute the command and enter the new name for the file, it will be created automatically containing the information of the default organization in your vscode
 
 <br>
 
-Initial release of API Version Changer Salesforce.
+The video below shows how easy it is:
 
-<br>
-<br>
-
-## 1.1.0
-
-<br>
-
-1.
-
-Changed the command name from
-
-    API Version Changer
-
-to
-
-    EasyHelp: API Version Changer
-
-<br>
-
-2.
-
-Added two new features
-
-    EasyHelp: Get Complete Manifest
-
-and
-
-    EasyHelp: Install SF Power Kit
+<img src="https://media.giphy.com/media/LtxKWnqJ3kWowuEkSB/giphy.gif">
 
 <br>
 <br>
 
-## 1.2.0
+<div id='CreateMetadataRecords'></div>
 
-
-<br>
-
-1.
-
-Name changed form
-
-    EasyHelp: Get Complete Manifest
-
-to
-
-    EasyHelp: Get Manifest
+## ***Create Metadata Records***
 
 <br>
 
-2.
+Create a .csv file with the information of the records to be inserted, follow the example:
 
-Added the <b>include</b> and <b>exclude</b> options in command ***EasyHelp: GetManifest***
+If you're trying to create the record <b>PT</b> with the custom field <b>Country__c</b> filled with <b>Portugal</b> the .csv should look like this:
 
-<br>
+    Name,Country__c
+    PT,Portugal
 
-3.
-
-***EasyHelp: API Version Changer*** :  will now ask the type of Object that you want to update
-
-<br>
-
-## 1.3.0
+Note that the first line is used to insert the API of the fieds and the following lines get the content of the record.
 
 <br>
 
-1.
+After creating the file execute the command and insert the name of the metadata in the input box
 
-New function
+Then insert the path of the .csv file
 
-    EasyHelp: Retrive Change Set
-
-<br>
-
-2.
-
-***EasyHelp: GetManifest*** : started having a picklist to choose **CustomMetadata** components
+Wait for the metadata to be generated and depoly it to the organization, <b>All done!</b>
 
 <br>
 
-3.
+There's a video to help:
 
-README was updated, ***looking better now 👌***
-
-<br>
-<br>
-
-
-
-
------------------------------------------------------------------------------------------------------------
-
-## Working with Markdown
-
-**Company:**
-* [@Step Ahead Consulting](https://stepahead.pt/)
-
-**Author:**
-* [@Vítor Batista](https://github.com/vitor-batista/)
-
-**Contributions:**
-* [@Jorge Silva](https://github.com/jcsilvapt/)
-
-
-
-**Enjoy!**
+<img src="https://media1.giphy.com/media/wuKC6QB3KnIVkx8CrC/giphy.gif?cid=790b7611134c3d4526559f97fc4f4bc93e7e83d3df406c98&rid=giphy.gif&ct=g">

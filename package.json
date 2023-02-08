@@ -12,7 +12,6 @@
   ],
   "activationEvents": [
     "onCommand:salesforce-easy-help.findReplaceAPI",
-    "onCommand:salesforce-easy-help.installSFPowerKit",
     "onCommand:salesforce-easy-help.getManifestFile",
     "onCommand:salesforce-easy-help.retriveChangeSet",
     "onCommand:salesforce-easy-help.logoutInstance",
@@ -24,10 +23,6 @@
       {
         "command": "salesforce-easy-help.findReplaceAPI",
         "title": "EasyHelp: API Version Changer"
-      },
-      {
-        "command": "salesforce-easy-help.installSFPowerKit",
-        "title": "EasyHelp: Install SF Power Kit"
       },
       {
         "command": "salesforce-easy-help.getManifestFile",
